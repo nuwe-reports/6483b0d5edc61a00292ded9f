@@ -1,0 +1,16 @@
+
+FROM maven:3.8.4-openjdk-8-slim AS build
+
+COPY . /app
+WORKDIR /app
+
+RUN mvn clean package
+
+# Selecciona la imagen base con Java instalado
+FROM openjdk:8-jre-slim
+
+COPY --from=build /app/target/accenture-techhub-0.0.1-SNAPSHOT.war /app/accenture-techhub-0.0.1-SNAPSHOT.war
+
+EXPOSE 8080
+
+CMD ["java", "-jar", "/app/accenture-techhub-0.0.1-SNAPSHOT.war"]
