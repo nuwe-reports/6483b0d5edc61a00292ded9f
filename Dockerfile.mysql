@@ -1,0 +1,14 @@
+
+FROM mysql:8
+
+ENV MYSQL_ROOT_PASSWORD=root
+ENV MYSQL_DATABASE=accwe-hospital
+#ENV MYSQL_USER=myuser
+#ENV MYSQL_PASSWORD=mypassword
+
+# Copia el script SQL de inicialización al contenedor
+COPY myscript.sql /docker-entrypoint-initdb.d/
+
+EXPOSE 3306
+
+CMD ["mysqld"]
